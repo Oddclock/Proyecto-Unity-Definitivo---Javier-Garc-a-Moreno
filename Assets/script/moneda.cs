@@ -1,18 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class moneda : MonoBehaviour {
-	private Rigidbody2D mipito;
+public class moneda : MonoBehaviour
+{
 
-	void Start () {
-		Destroy (gameObject, 10);
-		mipito = GetComponent <Rigidbody2D> ();
-		mipito.AddForce (new Vector2 (Random.Range(-100, 100),100));
-	}
+    private Rigidbody2D rb;
+    GameObject txt_moneda;
+    Control_Monedas cm;
+    public int suma;
 
-	void OnTriggerEnter2D(Collider2D objeto){
-		Debug.Log ("Alguien me ha tocado!");
-		if (objeto.tag == "Player")
-		Destroy (gameObject);
-	}
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        rb.AddForce(new Vector2(Random.Range(1, 1), Random.Range(1, 1)));
+        txt_moneda = GameObject.Find("Texto_moneda");
+        cm = txt_moneda.GetComponent<Control_Monedas>();
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            cm.suma_moneda(suma);
+            Destroy(gameObject);
+        }
+    }
 }
