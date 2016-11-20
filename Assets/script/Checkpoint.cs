@@ -14,8 +14,8 @@ public class Checkpoint : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D objeto){
 		if (objeto.tag == "Player" && !on) {
 			GetComponent <SpriteRenderer> ().sprite = banderaOn;
-			gcs.checkpoint (transform.position);
+            gcs.checkpoint (transform.position);
 			on = true;
 		}
-	}
+    }
 }
