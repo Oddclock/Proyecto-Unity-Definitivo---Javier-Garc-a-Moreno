@@ -1,10 +1,11 @@
 fileFormatVersion: 2
-guid: 2a3eb93385b447d4c9e3bd47cefdf5a0
-timeCreated: 1479922706
+guid: 08de99b8806497e4d854f5a3a1717872
+timeCreated: 1479917372
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Moneda: {fileID: 1000011233823118, guid: 85891b4d93474c641a94157fd38ebfd8, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
