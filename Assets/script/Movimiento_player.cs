@@ -6,6 +6,7 @@ public class Movimiento_player : MonoBehaviour {
 	public float velocidy = 5;
 	public float power = 1f;
 	public bool colision_suelo = false;
+	public GameObject particulas_muerte;
 	private Animator anim;
 	private Rigidbody2D rb;
 	private GameControlScript gcs;
@@ -71,7 +72,8 @@ public class Movimiento_player : MonoBehaviour {
 
 	void OnCollisionEnter2D (Collision2D col){
 		if (col.gameObject.tag == "Muerte"){
-			gcs.respawn ();
+			//gcs.respawn ();
+			Instantiate(particulas_muerte, transform.position, transform.rotation);
 	}
 
 	}
