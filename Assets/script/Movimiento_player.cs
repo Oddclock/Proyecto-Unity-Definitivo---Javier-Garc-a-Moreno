@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+[RequireComponent (typeof(AudioSource))]
 
 public class Movimiento_player : MonoBehaviour {
 	public float velocid = 5f;
@@ -7,13 +8,18 @@ public class Movimiento_player : MonoBehaviour {
 	public float power = 1f;
 	public bool colision_suelo = false;
 	public GameObject particulas_muerte;
+	public AudioClip sonido_salto;
+	public AudioClip sonido_herir;
+	public AudioClip sonido_moneda;
 	private Animator anim;
 	private Rigidbody2D rb;
 	private GameControlScript gcs;
+	private AudioSource audio;
 
 	// Use this for initialization
 	void Start () {
 		anim = GetComponent<Animator> ();
+		audio = GetComponent <AudioSource> ();
 		rb = GetComponent<Rigidbody2D> ();
 		gcs = GameObject.Find ("GameControl").GetComponent<GameControlScript>();
 
@@ -48,6 +54,7 @@ public class Movimiento_player : MonoBehaviour {
 			rb.velocity = new Vector2 (rb.velocity.x, velocidy);
 			transform.localScale = new Vector3 (1, 1, 1);
 			anim.SetBool ("jump", true);
+			audio.PlayOneShot (sonido_salto);
 		} 
 		if (Input.GetKeyUp ("up")) {
 			rb.velocity = new Vector2 (rb.velocity.x,rb.velocity.y);
@@ -71,10 +78,19 @@ public class Movimiento_player : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D (Collision2D col){
-		if (col.gameObject.tag == "Muerte"){
-			//gcs.respawn ();
-			Instantiate(particulas_muerte, transform.position, transform.rotation);
-	}
+		if (col.gameObject.tag == "Muerte") {
+			Invoke ("muerte", 1);
+			Instantiate (particulas_muerte, transform.position, transform.rotation);
+			audio.PlayOneShot (sonido_herir);
+		}
 
+		if (col.gameObject.tag == "moneda") {
+			audio.Play ();
+		}
 	}
+	
+		void muerte (){
+			gcs.respawn ();
+		}
+
 }
